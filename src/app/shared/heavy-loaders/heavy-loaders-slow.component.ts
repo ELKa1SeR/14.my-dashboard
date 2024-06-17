@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-heavy-loaders-slow',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
  template:`
   <section ngClass="['w-full h-[600px]', cssClass]">
    Heavy Loader Slow
