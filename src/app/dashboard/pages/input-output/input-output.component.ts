@@ -28,23 +28,26 @@ export default class InputOutputComponent {
     {
       id: 2,
       name: `Product 2`,
-      quantity: 1,
+      quantity: 0,
     },
   ])
 
-  private intervalSubscription = interval(1000).pipe(
-    tap(() => {
-      this.products.update((products) => [
-        ...products,
-        {
-          id: products.length +1,
-          name: `Product ${products.length +1 }`,
-          quantity: 0,
-        },
-      ]);
-    }),
-    take(7) // le dice a mi observable despues de siete emisiones que se limpie
-  ).subscribe();
+  private intervalSubscription = interval(1000)
+    .pipe(
+      tap(() => {
+        this.products.update((products) => [
+          ...products,
+          {
+            id: products.length + 1,
+            name: `Product ${products.length + 1}`,
+            quantity: 0,
+          },
+        ]);
+      }),
+      take(7)  // le dice a mi observable despues de siete emisiones que se limpie
+    )
+    .subscribe();
+
 
   ngOnDestroy(): void {
    this.intervalSubscription.unsubscribe();
