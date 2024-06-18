@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TitleComponent } from '@shared/title/title.component';
 
@@ -11,7 +11,7 @@ import { UsersService } from '../../../services/users.service';
   standalone: true,
   imports: [CommonModule, TitleComponent],
   template:`
-  <app-title title="User"></app-title>
+  <app-title [title]='titleLabel()'/>
 
   @if ( user() ) {
     <section>
@@ -21,8 +21,8 @@ import { UsersService } from '../../../services/users.service';
       />
 
       <div>
-        <h3>{{user()?.first_name}} {{user()?.last_name}}</h3>
-        <p>{{user()?.email}}</p>
+        <h3>{{ user()?.first_name }} {{ user()?.last_name }}</h3>
+        <p>{{ user()?.email }}</p>
       </div>
 
     </section>
@@ -40,9 +40,16 @@ export default class UserComponent {
   // public user = signal<User| undefined>(undefined);
   public user = toSignal(
     this.route.params.pipe(
-      switchMap( ({id}) => this.usersService.getUserById( id ) )
+      switchMap( ({id}) => this.usersService.getUserById(id))
     )
   )
+
+  public titleLabel = computed( ()=> {
+    if (this.user()){
+      return `Información del usuario: ${this.user()?.first_name} ${this.user()?.last_name}`
+    }
+    return 'Información del usuario';
+  })
 
   // constructor(){
   //   this.route.params.subscribe(params => {

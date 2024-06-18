@@ -37,7 +37,7 @@ export class UsersService {
    }
 
    getUserById( id: string){
-    return this.http.get<UserResponse>(`https://regres.in/api/users/${id}`)
+    return this.http.get<UserResponse>(`https://reqres.in/api/user/${id}`)
     .pipe(delay(1500),
     map(resp => resp.data)
     )
