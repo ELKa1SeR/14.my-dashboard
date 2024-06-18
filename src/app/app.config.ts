@@ -2,8 +2,8 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes,
@@ -14,9 +14,8 @@ export const appConfig: ApplicationConfig = {
       // },
     }),
   ),
-  importProvidersFrom(
-    HttpClientModule,
-
-  )
+  // importProvidersFrom(
+  //   HttpClientModule,)
+  provideHttpClient(withInterceptorsFromDi())
 ]
 };
