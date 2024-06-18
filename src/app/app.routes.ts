@@ -64,9 +64,14 @@ export const routes: Routes = [
   ]
 },
 {path: '',
-  redirectTo: '/dashboard',
+  // redirectTo: '/dashboard',
+  redirectTo: (route) => {
+    console.log(route);
+// se podría hacer una inserción
+    return '/dashboard/material';
+  },
   pathMatch: 'full',
-}
+},
 
 
 
